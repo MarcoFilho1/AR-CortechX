@@ -6,12 +6,28 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.4/dist/mindar-image-aframe.prod.js"></script>
     <style>
       body { margin: 0; overflow: hidden; }
+      #startButton {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 12px 24px;
+        font-size: 18px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        z-index: 9999;
+      }
     </style>
   </head>
 
   <body>
+    <button id="startButton">Iniciar AR</button>
+
     <a-scene
-      mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@master/examples/image-tracking/assets/card-example/card.mind; autoStart: true;"
+      mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@master/examples/image-tracking/assets/card-example/card.mind;"
       embedded
       color-space="sRGB"
       renderer="colorManagement: true, physicallyCorrectLights"
@@ -34,5 +50,26 @@
         <a-text value="CortechX" align="center" position="0 -0.7 0" color="#007BFF" scale="0.5 0.5 0.5"></a-text>
       </a-entity>
     </a-scene>
+
+    <script>
+      const startButton = document.getElementById('startButton');
+      const scene = document.querySelector('a-scene');
+
+      startButton.addEventListener('click', async () => {
+        // Acessa o componente mindar-image do a-scene
+        const mindarComponent = scene.components['mindar-image'];
+
+        if (mindarComponent) {
+          try {
+            await mindarComponent.start();
+            startButton.style.display = 'none'; // esconde o botão após iniciar
+          } catch (error) {
+            alert('Erro ao iniciar AR: ' + error.message);
+          }
+        } else {
+          alert('Componente MindAR não encontrado');
+        }
+      });
+    </script>
   </body>
 </html>
