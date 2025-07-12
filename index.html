@@ -15,26 +15,40 @@
 
       <!-- Marcador Hiro -->
       <a-marker preset="hiro">
-        <!-- Entidade com rotação animada -->
-        <a-entity
-          gltf-model="brain_model/scene.gltf"
+        
+        <!-- Modelo do cérebro que gira sobre o próprio eixo -->
+        <a-gltf-model
+          src="brain_model/scene.gltf"
           scale="3.5 3.5 3.5"
           position="0 1 0"
-          rotation="0 0 180"
-          animation="property: rotation; to: 0 0 360; loop: true; dur: 6000; easing: linear"
-        ></a-entity>
+          rotation="0 0 0"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 6000; easing: linear"
+        ></a-gltf-model>
 
-        <!-- Texto embaixo do modelo -->
+        <!-- Plano de fundo para contraste no texto -->
+        <a-plane 
+          color="#000000"
+          width="4"
+          height="0.5"
+          position="0 0.1 -0.01"
+          opacity="0.5"
+        ></a-plane>
+
+        <!-- Texto visível e nítido -->
         <a-text 
           value="CortechX - Academic League"
-          position="0 0.2 0"
+          position="0 0.1 0"
           align="center"
           color="#ffffff"
           width="4"
+          side="double"
+          shader="msdf"
+          font="https://cdn.jsdelivr.net/gh/etiennepinchon/aframe-fonts/fonts/roboto/Roboto-Regular.json"
         ></a-text>
+
       </a-marker>
 
-      <!-- Plano de fundo para que a cena não fique toda preta caso não haja marcador -->
+      <!-- Entidade da câmera -->
       <a-entity camera></a-entity>
     </a-scene>
   </body>
